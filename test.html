@@ -1,0 +1,35 @@
+<?php
+
+echo sprintf("Google Sheets and PHP Test\n");
+
+require_once 'vendor/autoload.php';
+
+$client = new Google_Client();
+$client->setApplicationName("Google Sheets and PHP Test");
+$client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
+$client->setAccessType("offline");
+$client->setAuthConfig(__DIR__."/database-f587d7d76e58.json");
+$service=new Google_Service_Sheets($client);
+$spreadsheetId="1CViNms2zmRaZpO0eHePIHtKvbEFuwPPkuTFT0D0lwhI";
+
+$range="userdata";
+$response=$service->spreadsheets_values->get($spreadsheetId,$range);
+$values=$response->getValues();
+
+if(empty($values))
+{
+    echo("No data found.");
+}
+else
+{
+  $mask='%s - %s - %s\r\n';
+
+  foreach ($values as $row)
+  {
+    echo "<table style=\"width:100%\">";
+    echo "</table>";
+    echo "<p>{$row[0]} - {$row[1]}</p>";
+  }
+
+  <p></p>
+}
