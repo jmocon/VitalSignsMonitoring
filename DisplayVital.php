@@ -51,10 +51,26 @@ $valuesVital=$responseVital->getValues();
             <div class="col-md-12">
               <div class="card card-plain table-plain-bg">
                 <div class="card-header ">
-                  <h4 class="card-title">Vital Data Table</h4>
+                  <h4 class="card-title">
+                    Vital Data Table
+                    <?php
+                    if ($_SESSION['usertype'] == 'admin' && isset($_GET['u'])) {
+                      ?>
+                      <button class="btn btn-danger pull-right" onclick="clearByUsername(<?php echo $_GET['u']; ?>);">
+                        Clear Entries
+                      </button>
+                      <?php
+                    }
+                    ?>
+                  </h4>
                   <p class="card-category">Here is a list of all the vital details collected</p>
+
                 </div>
                 <div class="card-body table-responsive">
+                  <div class="row m-0">
+                    <div class="col-12 p-0" id="notification">
+                    </div>
+                  </div>
                   <table class="table table-hover" id="example">
                     <thead>
                       <?php
@@ -142,6 +158,7 @@ $valuesVital=$responseVital->getValues();
 <script src="assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
+<script src="JumEE/js/DisplayVital.js"></script>
 <!-- Datatable -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
