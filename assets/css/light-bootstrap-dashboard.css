@@ -243,7 +243,7 @@ input:focus {
 }
 
 /*           Animations              */
-.form-control,
+/* .form-control, */
 .input-group-addon,
 .tagsinput,
 .navbar,
@@ -1515,7 +1515,8 @@ fieldset[disabled] .btn-neutral.active {
 
 .form-control {
   background-color: #FFFFFF;
-  border: 1px solid #E3E3E3;
+  /* border: 1px solid #E3E3E3; */
+  border: 1px solid #6C6C6C;
   border-radius: 4px;
   color: #565656;
   padding: 8px 12px;
@@ -1542,16 +1543,21 @@ fieldset[disabled] .btn-neutral.active {
   box-shadow: none;
 }
 
-.has-success .form-control {
+.has-success .form-control,
+.has-success.form-control
+{
   color: #87CB16;
+  border-color: #87CB16;
 }
 
 .has-success .form-control:focus {
   border-color: #87CB16;
 }
 
-.has-error .form-control {
+.has-error .form-control,
+.has-error.form-control {
   color: #FF4A55;
+  border-color: #FF4A55;
 }
 
 .has-error .form-control:focus {

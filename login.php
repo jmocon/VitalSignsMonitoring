@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once "App_Code/GoogleSheet.php";
+require_once "App_Code/User.php";
 $success = false;
 $notif = "";
 
@@ -14,102 +15,58 @@ $age = "";
 $gender = "";
 $address = "";
 if (isset($_GET['d']) && isset($_GET['d'])) {
-  if ($_GET['d'] == "login") {
-    require_once 'vendor/autoload.php';
-    $client = new Google_Client();
-    $client->setApplicationName("Google Sheets and PHP Test");
-    $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
-    $client->setAccessType("offline");
-    $client->setAuthConfig(__DIR__."/database-f587d7d76e58.json");
-    $service=new Google_Service_Sheets($client);
-    $spreadsheetId="1CViNms2zmRaZpO0eHePIHtKvbEFuwPPkuTFT0D0lwhI";
-
-    $rangeUser="userdata";
-
-    $responseUser=$service->spreadsheets_values->get($spreadsheetId,$rangeUser);
-    $valuesUser=$responseUser->getValues();
-
-    if(empty($valuesUser))
-    {
-        echo("No data found.");
-        die();
-    }
-    else
-    {
-      $found = false;
-      $mask='%s - %s - %s\r\n';
-      if ('username' != $_POST['username'] && 'password' != $_POST['password']) {
-        foreach ($valuesUser as $row) {
-          if ($row[0] == $_POST['username'] && $row[1] == $_POST['password']) {
-            $found = true;
-            $success = true;
-            $_SESSION['username'] = $row[0];
-            $_SESSION['usertype'] = (isset($row[8]))?$row[8]:'';
-            echo $_SESSION['username'];
-            echo "-";
-            echo $_SESSION['usertype'];
-            header('Location: index.php');
-            break;
-          }
-        }
-      }
-      if (!$found) {
-        $success = false;
-        $notif = "Authentication Failed.";
-      }
-    }
-  } else if ($_GET['d'] == "register") {
+  if ($_GET['d'] == "register") {
     $missing = "";
-    require_once 'vendor/autoload.php';
-    $client = new Google_Client();
-    $client->setApplicationName("Google Sheets and PHP Test");
-    $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
-    $client->setAccessType("offline");
-    $client->setAuthConfig(__DIR__."/database-f587d7d76e58.json");
-    $service=new Google_Service_Sheets($client);
-    $spreadsheetId="1CViNms2zmRaZpO0eHePIHtKvbEFuwPPkuTFT0D0lwhI";
+    // require_once 'vendor/autoload.php';
+    // $client = new Google_Client();
+    // $client->setApplicationName("Google Sheets and PHP Test");
+    // $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
+    // $client->setAccessType("offline");
+    // $client->setAuthConfig(__DIR__."/database-f587d7d76e58.json");
+    // $service=new Google_Service_Sheets($client);
+    // $spreadsheetId="1CViNms2zmRaZpO0eHePIHtKvbEFuwPPkuTFT0D0lwhI";
 
 
-    if (!empty($_POST['username'])) {
-      $uname = $_POST['username'];
-    } else {
-      $missing .= "<p>Username Missing. </p>";
-    }
-    if (!empty($_POST['password'])) {
-      $pword = $_POST['password'];
-    } else {
-      $missing .= "<p>Password Missing. </p>";
-    }
-    if (!empty($_POST['firstname'])) {
-      $fname = $_POST['firstname'];
-    } else {
-      $missing .= "<p>First Name Missing. </p>";
-    }
-    if (!empty($_POST['middlename'])) {
-      $mname = $_POST['middlename'];
-    } else {
-      $missing .= "<p>Middle Name Missing. </p>";
-    }
-    if (!empty($_POST['lastname'])) {
-      $lname = $_POST['lastname'];
-    } else {
-      $missing .= "<p>Last Name Missing. </p>";
-    }
-    if (!empty($_POST['age'])) {
-      $age = $_POST['age'];
-    } else {
-      $missing .= "<p>Age Missing. </p>";
-    }
-    if (!empty($_POST['gender'])) {
-      $gender = $_POST['gender'];
-    } else {
-      $missing .= "<p>Gender Missing. </p>";
-    }
-    if (!empty($_POST['address'])) {
-      $address = $_POST['address'];
-    } else {
-      $missing .= "<p>Address Missing. </p>";
-    }
+    // if (!empty($_POST['username'])) {
+    //   $uname = $_POST['username'];
+    // } else {
+    //   $missing .= "<p>Username Missing. </p>";
+    // }
+    // if (!empty($_POST['password'])) {
+    //   $pword = $_POST['password'];
+    // } else {
+    //   $missing .= "<p>Password Missing. </p>";
+    // }
+    // if (!empty($_POST['firstname'])) {
+    //   $fname = $_POST['firstname'];
+    // } else {
+    //   $missing .= "<p>First Name Missing. </p>";
+    // }
+    // if (!empty($_POST['middlename'])) {
+    //   $mname = $_POST['middlename'];
+    // } else {
+    //   $missing .= "<p>Middle Name Missing. </p>";
+    // }
+    // if (!empty($_POST['lastname'])) {
+    //   $lname = $_POST['lastname'];
+    // } else {
+    //   $missing .= "<p>Last Name Missing. </p>";
+    // }
+    // if (!empty($_POST['age'])) {
+    //   $age = $_POST['age'];
+    // } else {
+    //   $missing .= "<p>Age Missing. </p>";
+    // }
+    // if (!empty($_POST['gender'])) {
+    //   $gender = $_POST['gender'];
+    // } else {
+    //   $missing .= "<p>Gender Missing. </p>";
+    // }
+    // if (!empty($_POST['address'])) {
+    //   $address = $_POST['address'];
+    // } else {
+    //   $missing .= "<p>Address Missing. </p>";
+    // }
 
     if ($missing == "") {
       $exist = false;
@@ -163,8 +120,9 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/css/demo.css" rel="stylesheet" />
   <style>
-    body {
-      background: url('assets/img/full-screen-image-3.jpg')no-repeat;background-size: cover;
+    .wrapper {
+      background: url('assets/img/full-screen-image-3.jpg') no-repeat !important;
+      background-size: cover;
     }
     .centered {
       position: fixed;
@@ -176,8 +134,12 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
     label {
       color: #000 !important;
     }
-    input, select, textarea {
-      border: 1px solid #6c757d !important;
+    .loading {
+      background-image: url('JumEE/img/loading.gif');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      height: 50px;
     }
   </style>
 </head>
@@ -210,109 +172,174 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
                       <?php
                     }
                     ?>
-
-                    <form method="post" action="login.php?d=login">
-                      <div class="row">
-                        <div class="col-md-10 offset-md-1">
-                          <h6 class="mb-2 mt-2">Username</h6>
-                          <input class="form-control mb-2 mb-2 border border-secondary" type="text" name="username" placeholder="Username" />
-                          <h6 class="mb-2 mt-2">Password</h6>
-                          <input class="form-control mb-2 mb-2 border border-secondary" type="password" name="password" placeholder="Password" />
-                          <input class="btn form-control col-md-8 offset-md-2 mb-2 btn-primary btn-fill  border border-secondary" type="submit" value="Login" />
-                        </div>
+                    <div class="row">
+                      <div class="col-12" id="notification">
                       </div>
-                    </form>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10 offset-md-1">
+                        <h6 class="mb-2 mt-2">Username</h6>
+                        <input
+                          type        = "text"
+                          id          = "txtUsername"
+                          name        = "Username"
+                          placeholder = "Username"
+                          class       = "form-control mb-2 mb-2 border border-secondary"
+                        />
+                        <h6 class="mb-2 mt-2">Password</h6>
+                        <input
+                          type        = "password"
+                          id          = "txtPassword"
+                          name        = "Password"
+                          placeholder = "Password"
+                          class       = "form-control mb-2 mb-2 border border-secondary"
+                        />
+                        <button
+                          onclick = "login()"
+                          class   = "btn form-control col-md-8 offset-md-2 btn-primary btn-fill"
+                        >
+                          Login
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <div class="col-6" style="overflow-y: auto;">
-                    <form method="post" action="login.php?d=register">
+                    <div class="row m-0">
+                      <div class="col-sm-12 pr-1 pl-0">
+                        <h4 class="text-center">Register</h4>
+                        <hr>
+                      </div>
+                    </div>
+                    <?php
+                    if ($regnotif != "") {
+                      ?>
                       <div class="row m-0">
-                        <div class="col-sm-12 pr-1 pl-0">
-                          <h4 class="text-center">Register</h4>
-                          <hr>
+                        <div class="col-12">
+                          <div class="alert alert-<?php echo ($regsuccess)?'success':'danger';?>">
+                            <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                              <i class="nc-icon nc-simple-remove"></i>
+                            </button>
+                            <span>
+                              <?php echo $regnotif; ?>
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <?php
-                      if ($regnotif != "") {
-                        ?>
-                        <div class="row m-0">
-                          <div class="col-12">
-                            <div class="alert alert-<?php echo ($regsuccess)?'success':'danger';?>">
-                              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                                <i class="nc-icon nc-simple-remove"></i>
-                              </button>
-                              <span>
-                                <?php echo $regnotif; ?>
-                              </span>
+                    }
+                    ?>
+                    <div class="row m-0">
+                      <div class="col-12 p-0" id="reg_notification">
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-12 p-0 loading d-none" id="reg_loading">
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-6 pr-1 pl-0">
+                        <div class="form-group">
+                          <label>Username</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="txt_regUsername"
+                            name="reg_username"
+                            placeholder="Username"
+                          >
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-1 pr-0">
+                        <div class="form-group">
+                          <label>Password</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="txt_regPassword"
+                            name="reg_password"
+                            placeholder="Password"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-12 p-0">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Full Name</label>
+                          <div class="row m-0">
+                            <div class="col-4 pl-0 pr-1">
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="txt_regFirstName"
+                                name="firstname"
+                                placeholder="First Name"
+                              >
+                            </div>
+                            <div class="col-4 pl-1 pr-1">
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="txt_regMiddleName"
+                                name="middlename"
+                                placeholder="Middle Name"
+                              >
+                            </div>
+                            <div class="col-4 pl-1 pr-0">
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="txt_regLastName"
+                                name="lastname"
+                                placeholder="Last Name"
+                              >
                             </div>
                           </div>
                         </div>
-                        <?php
-                      }
-                      ?>
-                      <div class="row m-0">
-                        <div class="col-md-6 pr-1 pl-0">
-                          <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" name="username" placeholder="Username">
-                          </div>
-                        </div>
-                        <div class="col-md-6 pl-1 pr-0">
-                          <div class="form-group">
-                            <label>Password</label>
-                            <input type="text" class="form-control" name="password" placeholder="Password">
-                          </div>
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-6 pr-1 pl-0">
+                        <div class="form-group">
+                          <label>Age</label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="txt_regAge"
+                            name="age"
+                            placeholder="Age"
+                          >
                         </div>
                       </div>
-                      <div class="row m-0">
-                        <div class="col-md-12 p-0">
-                          <div class="form-group">
-                            <label for="exampleFormControlInput1">Full Name</label>
-                            <div class="row m-0">
-                              <div class="col-4 pl-0 pr-1">
-                                <input type="text" class="form-control" name="firstname" placeholder="First Name">
-                              </div>
-                              <div class="col-4 pl-1 pr-1">
-                                <input type="text" class="form-control" name="middlename" placeholder="Middle Name">
-                              </div>
-                              <div class="col-4 pl-1 pr-0">
-                                <input type="text" class="form-control" name="lastname" placeholder="Last Name">
-                              </div>
-                            </div>
-                          </div>
+                      <div class="col-md-6 pl-1 pr-0">
+                        <div class="form-group">
+                          <label>Gender</label>
+                          <select class="form-control" name="gender" id="sel_regGender">
+                            <option value="M" selected>Male</option>
+                            <option value="F">Female</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="row m-0">
-                        <div class="col-md-6 pr-1 pl-0">
-                          <div class="form-group">
-                            <label>Age</label>
-                            <input type="number" class="form-control" name="age" placeholder="Age">
-                          </div>
-                        </div>
-                        <div class="col-md-6 pl-1 pr-0">
-                          <div class="form-group">
-                            <label>Gender</label>
-                            <select class="form-control" name="gender">
-                              <option value="M" selected>Male</option>
-                              <option value="F">Female</option>
-                            </select>
-                          </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-12 p-0">
+                        <div class="form-group">
+                          <label>Address</label>
+                          <textarea
+                            class="form-control"
+                            name="address"
+                            id="txt_regAddress"
+                            placeholder="House No. / Street / District / City / Province"
+                            ></textarea>
                         </div>
                       </div>
-                      <div class="row m-0">
-                        <div class="col-md-12 p-0">
-                          <div class="form-group">
-                            <label>Address</label>
-                            <textarea class="form-control" name="address" placeholder="House No. / Street / District / City / Province"></textarea>
-                          </div>
-                        </div>
-                      </div>
+                    </div>
 
-                      <div class="row m-0">
-                        <div class="col-12 text-center">
-                          <input type="submit" class="btn btn-primary btn-fill" value="Register" />
-                        </div>
+                    <div class="row m-0">
+                      <div class="col-12 text-center">
+                        <button class="btn btn-primary btn-fill" onclick="register();">Register</button>
                       </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -337,5 +364,8 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
 <script src="assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
+
+<script src="JumEE/js/login.js"></script>
+<script src="JumEE/js/utility.js"></script>
 
 </html>
