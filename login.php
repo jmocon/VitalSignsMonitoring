@@ -121,8 +121,9 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
   <link href="assets/css/demo.css" rel="stylesheet" />
   <style>
     .wrapper {
-      background: url('assets/img/full-screen-image-3.jpg') no-repeat !important;
-      background-size: cover;
+      /* background: url('assets/img/full-screen-image-3.jpg') no-repeat !important; */
+      /* background-size: cover; */
+      background-color: #60f542;
     }
     .centered {
       position: fixed;
@@ -150,7 +151,7 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
       <div class="container-fluid centered">
         <div class="row">
           <div class="col-md-8 offset-md-2">
-            <div class="card card-user" style="background-color: rgba(255, 255, 255, 0.6);">
+            <div class="card card-user" style="background-color: #2bc5fc;">
               <div class="card-body">
                 <div class="row">
                   <div class="col-6">
