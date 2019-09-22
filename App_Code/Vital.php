@@ -46,4 +46,22 @@ class Vital{
 		$result = $this->service->spreadsheets->batchUpdate($this->spreadsheetId,$delete_body);
 
 	}
+
+	public function UpdateUsername($old,$new) {
+		$count = 0;
+		$responseVital=$this->service->spreadsheets_values->get($this->spreadsheetId,$this->table);
+		$valuesVital=$responseVital->getValues();
+		foreach ($valuesVital as $row) {
+			$count++;
+			if ($row[0] == $old) {
+				$range = $this->table."!A".$count.":A".$count;
+		    $values = [[$new]];
+		    $body = new Google_Service_Sheets_ValueRange([
+		      'values' => $values
+		    ]);
+		    $params = ['valueInputOption' => 'RAW'];
+		    $result = $this->service->spreadsheets_values->update($this->spreadsheetId,$range,$body,$params);
+			}
+		}
+	}
 }

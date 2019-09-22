@@ -45,6 +45,7 @@ if (!empty($_POST['row_delete_id'])) {
 // DELETE END
 // UPDATE START
 if (isset($_POST['row_id'])) {
+  $old_uname = $_POST['real_username'];
   $id = $_POST['row_id'];
   $uname = $_POST['username'];
   $pword = $_POST['password'];
@@ -82,6 +83,8 @@ if (isset($_POST['row_id'])) {
     $params = ['valueInputOption' => 'RAW'];
 
     $result = $service->spreadsheets_values->update($spreadsheetId,$range,$body,$params);
+    $clsVital = new Vital();
+    $clsVital->UpdateUsername($old_uname,$uname);
   }
 }
 //UPDATE END
@@ -263,6 +266,7 @@ $valuesUser=$responseUser->getValues();
                                     </div>
                                     <div class="modal-footer text-right">
                                       <div class="col-12">
+                                      <input type="hidden" name="real_username" value="<?php echo $row[0]; ?>">
                                         <input type="submit" class="btn btn-primary" value="Update" />
                                         <button type="button" class="btn btn-simple" data-dismiss="modal">Close</button>
                                       </div>
