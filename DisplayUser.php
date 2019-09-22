@@ -1,6 +1,8 @@
 <?php
 session_start();
+
 require_once 'vendor/autoload.php';
+require_once 'App_Code/Vital.php';
 $notif = "";
 $success = false;
 $client = new Google_Client();
@@ -17,7 +19,9 @@ if (!empty($_GET['delete'])) {
 }
 if (!empty($_POST['row_delete_id'])) {
   $id = $_POST['row_delete_id'];
+  $username = $_POST['row_delete_username'];
   $id_prev = $id-1;
+
   $deleteOperation = array(
                     'range' => array(
                         'sheetId'   => 0, // <======= This mean the very first sheet on worksheet
@@ -29,10 +33,13 @@ if (!empty($_POST['row_delete_id'])) {
   $deletable_row[] = new Google_Service_Sheets_Request(
                         array('deleteDimension' =>  $deleteOperation)
                       );
+
   $delete_body = new Google_Service_Sheets_BatchUpdateSpreadsheetRequest(
                         array('requests' => $deletable_row)
                       );
   $result = $service->spreadsheets->batchUpdate($spreadsheetId,$delete_body);
+  $clsVital = new Vital();
+  $clsVital->DeleteByUsername($username);
   header('Location: DisplayUser.php?delete=done');
 }
 // DELETE END
@@ -279,6 +286,7 @@ $valuesUser=$responseUser->getValues();
                                     <div class="modal-footer text-right">
                                       <div class="col-12">
                                         <input type="hidden" name="row_delete_id" value="<?php echo $count; ?>">
+                                        <input type="hidden" name="row_delete_username" value="<?php echo $row[0]; ?>">
                                         <input type="submit" class="btn btn-danger" value="Delete" />
                                         <button type="button" class="btn btn-simple" data-dismiss="modal">Close</button>
                                       </div>

@@ -71,6 +71,7 @@ function register(){
 
   var username    = $('#txt_regUsername').val();
   var password    = $('#txt_regPassword').val();
+  var passwordconfirm = $('#txt_regPasswordConfirm').val();
   var firstname   = $('#txt_regFirstName').val();
   var middlename  = $('#txt_regMiddleName').val();
   var lastname    = $('#txt_regLastName').val();
@@ -80,6 +81,9 @@ function register(){
 
   var missing = false;
   if (!username) {
+    missing = true;
+  }
+  if (!passwordconfirm) {
     missing = true;
   }
   if (!password) {
@@ -105,51 +109,67 @@ function register(){
   }
 
   if (!missing) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if(this.responseText){
-          let result = JSON.parse(this.responseText);
-          $('#reg_loading').addClass('d-none');
-          if (result.success) {
-            let notif = `
-            <div class="alert alert-success alert-dismissible text-dark" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                <span class="sr-only">Close</span>
-              </button>
-              `+result.title+`
-              <p class="m-0">`+result.message+`</p>
-            </div>
-            `;
-            $('#reg_notification').html(notif);
-          } else {
-            let notif = `
-            <div class="alert alert-danger alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                <span class="sr-only">Close</span>
-              </button>
-              `+result.title+`
-              <p>`+result.message+`</p>
-            </div>
-            `;
-            $('#reg_notification').html(notif);
+    if (password === passwordconfirm) {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          if(this.responseText){
+            let result = JSON.parse(this.responseText);
+            $('#reg_loading').addClass('d-none');
+            if (result.success) {
+              let notif = `
+              <div class="alert alert-success alert-dismissible text-dark" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  <span class="sr-only">Close</span>
+                </button>
+                `+result.title+`
+                <p class="m-0">`+result.message+`</p>
+              </div>
+              `;
+              $('#reg_notification').html(notif);
+            } else {
+              let notif = `
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  <span class="sr-only">Close</span>
+                </button>
+                `+result.title+`
+                <p>`+result.message+`</p>
+              </div>
+              `;
+              $('#reg_notification').html(notif);
+            }
           }
         }
-      }
-    };
-    param += "Username=" + username;
-    param += "&Password=" + password;
-    param += "&FirstName=" + firstname;
-    param += "&MiddleName=" + middlename;
-    param += "&LastName=" + lastname;
-    param += "&Age=" + age;
-    param += "&Gender=" + gender;
-    param += "&Address=" + address;
-    xmlhttp.open("POST", url, true);
-    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xmlhttp.send(param);
+      };
+      param += "Username=" + username;
+      param += "&Password=" + password;
+      param += "&FirstName=" + firstname;
+      param += "&MiddleName=" + middlename;
+      param += "&LastName=" + lastname;
+      param += "&Age=" + age;
+      param += "&Gender=" + gender;
+      param += "&Address=" + address;
+      xmlhttp.open("POST", url, true);
+      xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xmlhttp.send(param);
+    } else {
+      $('#reg_loading').addClass('d-none');
+      $('#txt_regPasswordConfirm').val('');
+      let notif = `
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+        Password Confirm does not match
+      </div>
+      `;
+      $('#reg_notification').html(notif);
+    }
+
   } else {
     $('#reg_loading').addClass('d-none');
     let notif = `

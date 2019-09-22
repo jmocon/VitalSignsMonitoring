@@ -17,56 +17,6 @@ $address = "";
 if (isset($_GET['d']) && isset($_GET['d'])) {
   if ($_GET['d'] == "register") {
     $missing = "";
-    // require_once 'vendor/autoload.php';
-    // $client = new Google_Client();
-    // $client->setApplicationName("Google Sheets and PHP Test");
-    // $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
-    // $client->setAccessType("offline");
-    // $client->setAuthConfig(__DIR__."/database-f587d7d76e58.json");
-    // $service=new Google_Service_Sheets($client);
-    // $spreadsheetId="1CViNms2zmRaZpO0eHePIHtKvbEFuwPPkuTFT0D0lwhI";
-
-
-    // if (!empty($_POST['username'])) {
-    //   $uname = $_POST['username'];
-    // } else {
-    //   $missing .= "<p>Username Missing. </p>";
-    // }
-    // if (!empty($_POST['password'])) {
-    //   $pword = $_POST['password'];
-    // } else {
-    //   $missing .= "<p>Password Missing. </p>";
-    // }
-    // if (!empty($_POST['firstname'])) {
-    //   $fname = $_POST['firstname'];
-    // } else {
-    //   $missing .= "<p>First Name Missing. </p>";
-    // }
-    // if (!empty($_POST['middlename'])) {
-    //   $mname = $_POST['middlename'];
-    // } else {
-    //   $missing .= "<p>Middle Name Missing. </p>";
-    // }
-    // if (!empty($_POST['lastname'])) {
-    //   $lname = $_POST['lastname'];
-    // } else {
-    //   $missing .= "<p>Last Name Missing. </p>";
-    // }
-    // if (!empty($_POST['age'])) {
-    //   $age = $_POST['age'];
-    // } else {
-    //   $missing .= "<p>Age Missing. </p>";
-    // }
-    // if (!empty($_POST['gender'])) {
-    //   $gender = $_POST['gender'];
-    // } else {
-    //   $missing .= "<p>Gender Missing. </p>";
-    // }
-    // if (!empty($_POST['address'])) {
-    //   $address = $_POST['address'];
-    // } else {
-    //   $missing .= "<p>Address Missing. </p>";
-    // }
 
     if ($missing == "") {
       $exist = false;
@@ -123,7 +73,7 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
     .wrapper {
       /* background: url('assets/img/full-screen-image-3.jpg') no-repeat !important; */
       /* background-size: cover; */
-      background-color: #60f542;
+      background-color: #4aff7d;
     }
     .centered {
       position: fixed;
@@ -149,28 +99,26 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
   <div class="wrapper">
     <div class="content">
       <div class="container-fluid centered">
+        <h3 class="text-center">Vital Signs Monitoring</h3>
         <div class="row">
-          <div class="col-md-8 offset-md-2">
-            <div class="card card-user" style="background-color: #2bc5fc;">
+          <div class="col-md-4 offset-md-4">
+            <div class="card card-user" style="background-color: #7bbfff;">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-6">
-                    <h3 class="text-center">Vital Signs Monitoring</h3>
-                    <hr>
+                  <div class="col-12">
                     <h4 class="text-center">Log-in</h4>
-                    <hr>
                     <?php
                     if ($notif != "") {
                       ?>
-                      <div class="alert alert-<?php echo ($success)?'success':'danger';?>">
-                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                          <i class="nc-icon nc-simple-remove"></i>
-                        </button>
-                        <span>
-                          <?php echo $notif; ?>
-                        </span>
-                      </div>
-                      <?php
+                    <div class="alert alert-<?php echo ($success)?'success':'danger';?>">
+                      <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                        <i class="nc-icon nc-simple-remove"></i>
+                      </button>
+                      <span>
+                        <?php echo $notif; ?>
+                      </span>
+                    </div>
+                    <?php
                     }
                     ?>
                     <div class="row">
@@ -178,171 +126,36 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-10 offset-md-1">
-                        <h6 class="mb-2 mt-2">Username</h6>
-                        <input
-                          type        = "text"
-                          id          = "txtUsername"
-                          name        = "Username"
-                          placeholder = "Username"
-                          class       = "form-control mb-2 mb-2 border border-secondary"
-                        />
-                        <h6 class="mb-2 mt-2">Password</h6>
-                        <input
-                          type        = "password"
-                          id          = "txtPassword"
-                          name        = "Password"
-                          placeholder = "Password"
-                          class       = "form-control mb-2 mb-2 border border-secondary"
-                        />
-                        <button
-                          onclick = "login()"
-                          class   = "btn form-control col-md-8 offset-md-2 btn-primary btn-fill"
-                        >
+                      <div class="col-3">
+                        <h6 class="mb-2 mt-2">Username:</h6>
+                      </div>
+                      <div class="col-md-9">
+                        <input type="text" id="txtUsername" name="Username" placeholder="Username" class="form-control mb-2 mb-2 border border-secondary" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-3">
+                        <h6 class="mb-2 mt-2">Password:</h6>
+                      </div>
+                      <div class="col-md-9">
+                        <input type="password" id="txtPassword" name="Password" placeholder="Password" class="form-control mb-2 mb-2 border border-secondary" />
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-md-12">
+                        <button onclick="login()" class="btn form-control col-md-8 offset-md-2 btn-primary btn-fill">
                           Login
                         </button>
                       </div>
                     </div>
                   </div>
-                  <div class="col-6" style="overflow-y: auto;">
-                    <div class="row m-0">
-                      <div class="col-sm-12 pr-1 pl-0">
-                        <h4 class="text-center">Register</h4>
-                        <hr>
-                      </div>
-                    </div>
-                    <?php
-                    if ($regnotif != "") {
-                      ?>
-                      <div class="row m-0">
-                        <div class="col-12">
-                          <div class="alert alert-<?php echo ($regsuccess)?'success':'danger';?>">
-                            <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                              <i class="nc-icon nc-simple-remove"></i>
-                            </button>
-                            <span>
-                              <?php echo $regnotif; ?>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <?php
-                    }
-                    ?>
-                    <div class="row m-0">
-                      <div class="col-12 p-0" id="reg_notification">
-                      </div>
-                    </div>
-                    <div class="row m-0">
-                      <div class="col-12 p-0 loading d-none" id="reg_loading">
-                      </div>
-                    </div>
-                    <div class="row m-0">
-                      <div class="col-md-6 pr-1 pl-0">
-                        <div class="form-group">
-                          <label>Username</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="txt_regUsername"
-                            name="reg_username"
-                            placeholder="Username"
-                          >
-                        </div>
-                      </div>
-                      <div class="col-md-6 pl-1 pr-0">
-                        <div class="form-group">
-                          <label>Password</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="txt_regPassword"
-                            name="reg_password"
-                            placeholder="Password"
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row m-0">
-                      <div class="col-md-12 p-0">
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Full Name</label>
-                          <div class="row m-0">
-                            <div class="col-4 pl-0 pr-1">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="txt_regFirstName"
-                                name="firstname"
-                                placeholder="First Name"
-                              >
-                            </div>
-                            <div class="col-4 pl-1 pr-1">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="txt_regMiddleName"
-                                name="middlename"
-                                placeholder="Middle Name"
-                              >
-                            </div>
-                            <div class="col-4 pl-1 pr-0">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="txt_regLastName"
-                                name="lastname"
-                                placeholder="Last Name"
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row m-0">
-                      <div class="col-md-6 pr-1 pl-0">
-                        <div class="form-group">
-                          <label>Age</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="txt_regAge"
-                            name="age"
-                            placeholder="Age"
-                          >
-                        </div>
-                      </div>
-                      <div class="col-md-6 pl-1 pr-0">
-                        <div class="form-group">
-                          <label>Gender</label>
-                          <select class="form-control" name="gender" id="sel_regGender">
-                            <option value="M" selected>Male</option>
-                            <option value="F">Female</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row m-0">
-                      <div class="col-md-12 p-0">
-                        <div class="form-group">
-                          <label>Address</label>
-                          <textarea
-                            class="form-control"
-                            name="address"
-                            id="txt_regAddress"
-                            placeholder="House No. / Street / District / City / Province"
-                            ></textarea>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row m-0">
-                      <div class="col-12 text-center">
-                        <button class="btn btn-primary btn-fill" onclick="register();">Register</button>
-                      </div>
-                    </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 text-center">
+                    New Account? <a href="register.php" class="text-dark"> Click Here! </a>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

@@ -94,4 +94,8 @@ class User{
     $mdl->setUserType   ((isset($row[8])) ? $row[8] : '');
     return $mdl;
   }
+
+	public function Delete($row){
+		
+	}
 }
