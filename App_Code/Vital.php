@@ -41,9 +41,11 @@ class Vital{
 
 			}
 		}
-		$delete_body = new Google_Service_Sheets_BatchUpdateSpreadsheetRequest(array('requests' => $deletable_row));
 
+	if (!empty($deletable_row)) {
+		$delete_body = new Google_Service_Sheets_BatchUpdateSpreadsheetRequest(array('requests' => $deletable_row));
 		$result = $this->service->spreadsheets->batchUpdate($this->spreadsheetId,$delete_body);
+	}
 
 	}
 
