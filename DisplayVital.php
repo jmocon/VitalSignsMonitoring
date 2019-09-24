@@ -56,7 +56,7 @@ $valuesVital=$responseVital->getValues();
                     <?php
                     if ($_SESSION['usertype'] == 'admin' && isset($_GET['u'])) {
                       ?>
-                      <button class="btn btn-danger pull-right" onclick="clearByUsername(<?php echo $_GET['u']; ?>);">
+                      <button class="btn btn-danger pull-right" onclick="clearByUsername('<?php echo $_GET['u']; ?>');">
                         Clear Entries
                       </button>
                       <?php
