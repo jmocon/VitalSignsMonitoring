@@ -7,7 +7,6 @@ class VitalModel{
 	private $DateTime = "";
 	private $BodyTemperature = "";
 	private $HeartRate = "";
-	private $BloodPressure = "";
 	private $Diastolic = "";
 	private $Systolic = "";
 	private $RespirationRate = "";
@@ -69,16 +68,6 @@ class VitalModel{
 
 	public function setHeartRate($HeartRate){
 		$this->HeartRate = $HeartRate;
-	}
-
-
-	//BloodPressure
-	public function getBloodPressure(){
-		return $this->BloodPressure;
-	}
-
-	public function setBloodPressure($BloodPressure){
-		$this->BloodPressure = $BloodPressure;
 	}
 
 

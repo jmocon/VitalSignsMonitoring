@@ -81,7 +81,6 @@ $valuesVital=$responseVital->getValues();
                       <th>Date-Time</th>
                       <th>Body Temperature</th>
                       <th>Heart Rate</th>
-                      <th>Blood Pressure</th>
                       <th>Diastolic</th>
                       <th>Systolic</th>
                       <th>Respiration Rate</th>
@@ -103,7 +102,6 @@ $valuesVital=$responseVital->getValues();
                             echo "<td>" . $row[4] . "</td>";
                             echo "<td>" . $row[5] . "</td>";
                             echo "<td>" . $row[6] . "</td>";
-                            echo "<td>" . $row[7] . "</td>";
                             echo "</tr>";
                           }
                         }
@@ -124,7 +122,6 @@ $valuesVital=$responseVital->getValues();
                             echo "<td>" . $row[4] . "</td>";
                             echo "<td>" . $row[5] . "</td>";
                             echo "<td>" . $row[6] . "</td>";
-                            echo "<td>" . $row[7] . "</td>";
                             echo "</tr>";
                           }
                         }
@@ -149,7 +146,7 @@ $valuesVital=$responseVital->getValues();
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 <script src="assets/js/plugins/bootstrap-switch.js"></script>
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
 <!--  Chartist Plugin  -->
 <script src="assets/js/plugins/chartist.min.js"></script>
 <!--  Notifications Plugin    -->

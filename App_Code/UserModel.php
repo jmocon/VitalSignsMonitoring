@@ -12,6 +12,7 @@ class UserModel{
 	private $Gender = "";
 	private $Address = "";
 	private $UserType = "";
+	private $DoctorNumber = "";
 
 	public function __construct(){}
 
@@ -120,6 +121,16 @@ class UserModel{
 
 	public function setUserType($UserType){
 		$this->UserType = $UserType;
+	}
+
+
+	//DoctorNumber
+	public function getDoctorNumber(){
+		return $this->DoctorNumber;
+	}
+
+	public function setDoctorNumber($DoctorNumber){
+		$this->DoctorNumber = $DoctorNumber;
 	}
 
 

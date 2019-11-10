@@ -55,6 +55,7 @@ if (isset($_POST['row_id'])) {
   $age = $_POST['age'];
   $gender = $_POST['gender'];
   $address = $_POST['address'];
+  $doctornumber = $_POST['doctornumber'];
 
   $exist = false;
   $rangeUser="userdata";
@@ -76,7 +77,7 @@ if (isset($_POST['row_id'])) {
     $notif = "User successfully updated.";
     $success = true;
     $range = "userdata!A".$id.":I".$id;
-    $values = [[$uname, $pword,$fname,$mname,$lname,$age,$gender,$address,"client"]];
+    $values = [[$uname, $pword,$fname,$mname,$lname,$age,$gender,$address,$doctornumber]];
     $body = new Google_Service_Sheets_ValueRange([
       'values' => $values
     ]);
@@ -157,6 +158,7 @@ $valuesUser=$responseUser->getValues();
                       <th>Age</th>
                       <th>Gender</th>
                       <th>Address</th>
+                      <th>Doctor Number</th>
                       <th>Action</th>
                     </thead>
                     <tbody>
@@ -164,9 +166,6 @@ $valuesUser=$responseUser->getValues();
                       $count = 0;
                       foreach ($valuesUser as $row)
                       {
-                        if (empty($row[8])) {
-                          $row[8] = "client";
-                        }
                         $count++;
                         if ($row[0] != 'username' && $row[8] != "admin") {
                           echo "<tr>";
@@ -178,6 +177,7 @@ $valuesUser=$responseUser->getValues();
                           echo "<td>" . $row[5] . "</td>";
                           echo "<td>" . $row[6] . "</td>";
                           echo "<td>" . ((empty($row[7]))?'':$row[7]) . "</td>";
+                          echo "<td>" . $row[8] . "</td>";
                           ?>
                           <td class="td-actions">
                             <a href="DisplayVital.php?u=<?php echo $row[0]; ?>" rel="tooltip" title="View" class="btn btn-secondary btn-simple btn-link">
@@ -252,6 +252,14 @@ $valuesUser=$responseUser->getValues();
                                               }
                                               ?>
                                             </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row m-0">
+                                        <div class="col-md-12 p-0">
+                                          <div class="form-group">
+                                            <label>Doctor Number</label>
+                                            <input type="text" class="form-control" name="doctornumber" placeholder="(ex: +639 12345 6789)" value="<?php echo ((empty($row[8]))?'':$row[8]); ?>" />
                                           </div>
                                         </div>
                                       </div>

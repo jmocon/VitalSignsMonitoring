@@ -22,7 +22,8 @@ class User{
 			$mdl->getAge(),
 			$mdl->getGender(),
 			$mdl->getAddress(),
-			$mdl->getUserType()
+			$mdl->getUserType(),
+			$mdl->getDoctorNumber()
 		]];
 		$body = new Google_Service_Sheets_ValueRange([
 			'values' => $values
@@ -83,19 +84,20 @@ class User{
   public function ToModel($row,$index = 0){
     $mdl = new UserModel();
     $mdl->setId($index);
-    $mdl->setUsername   ((isset($row[0])) ? $row[0] : '');
-    $mdl->setPassword   ((isset($row[1])) ? $row[1] : '');
-    $mdl->setFirstName  ((isset($row[2])) ? $row[2] : '');
-    $mdl->setMiddleName ((isset($row[3])) ? $row[3] : '');
-    $mdl->setLastName   ((isset($row[4])) ? $row[4] : '');
-    $mdl->setAge        ((isset($row[5])) ? $row[5] : '');
-    $mdl->setGender     ((isset($row[6])) ? $row[6] : '');
-    $mdl->setAddress    ((isset($row[7])) ? $row[7] : '');
-    $mdl->setUserType   ((isset($row[8])) ? $row[8] : '');
+    $mdl->setUsername   	((isset($row[0])) ? $row[0] : '');
+    $mdl->setPassword   	((isset($row[1])) ? $row[1] : '');
+    $mdl->setFirstName  	((isset($row[2])) ? $row[2] : '');
+    $mdl->setMiddleName 	((isset($row[3])) ? $row[3] : '');
+    $mdl->setLastName   	((isset($row[4])) ? $row[4] : '');
+    $mdl->setAge        	((isset($row[5])) ? $row[5] : '');
+    $mdl->setGender     	((isset($row[6])) ? $row[6] : '');
+    $mdl->setAddress    	((isset($row[7])) ? $row[7] : '');
+		$mdl->setDoctorNumber	((isset($row[8])) ? $row[8] : '');
+    $mdl->setUserType   	((isset($row[9])) ? $row[9] : '');
     return $mdl;
   }
 
 	public function Delete($row){
-		
+
 	}
 }
