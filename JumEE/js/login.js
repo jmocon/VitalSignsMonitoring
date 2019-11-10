@@ -78,6 +78,7 @@ function register(){
   var age         = $('#txt_regAge').val();
   var gender      = $('#sel_regGender').val();
   var address     = $('#txt_regAddress').val();
+  var contact     = $('#txt_regContact').val();
 
   var missing = false;
   if (!username) {
@@ -105,6 +106,9 @@ function register(){
     missing = true;
   }
   if (!address) {
+    missing = true;
+  }
+  if (!contact) {
     missing = true;
   }
 
@@ -152,6 +156,8 @@ function register(){
       param += "&Age=" + age;
       param += "&Gender=" + gender;
       param += "&Address=" + address;
+      param += "&DoctorNumber=" + contact;
+      console.log(param);
       xmlhttp.open("POST", url, true);
       xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       xmlhttp.send(param);

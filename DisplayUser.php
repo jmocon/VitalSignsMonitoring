@@ -106,7 +106,7 @@ $valuesUser=$responseUser->getValues();
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="assets/fonts/Montserrat.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.css" />
   <!-- CSS Files -->
   <link href="assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -180,8 +180,11 @@ $valuesUser=$responseUser->getValues();
                           echo "<td>" . $row[8] . "</td>";
                           ?>
                           <td class="td-actions">
-                            <a href="DisplayVital.php?u=<?php echo $row[0]; ?>" rel="tooltip" title="View" class="btn btn-secondary btn-simple btn-link">
-                              <i class="fa fa-eye"></i>
+                            <a href="DisplayVital.php?u=<?php echo $row[0]; ?>" rel="tooltip" title="View Vitals" class="btn btn-secondary btn-simple btn-link">
+                              <i class="fa fa-notes-medical"></i>
+                            </a>
+                            <a href="DisplaySymptoms.php?u=<?php echo $row[0]; ?>" rel="tooltip" title="View Symptoms" class="btn btn-secondary btn-simple btn-link">
+                              <i class="fa fa-stethoscope"></i>
                             </a>
                             <button type="button" rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-link" data-toggle="modal" data-target="#modal_edit_<?php echo $count; ?>">
                               <i class="fa fa-edit"></i>

@@ -22,8 +22,8 @@ class User{
 			$mdl->getAge(),
 			$mdl->getGender(),
 			$mdl->getAddress(),
-			$mdl->getUserType(),
-			$mdl->getDoctorNumber()
+			$mdl->getDoctorNumber(),
+			$mdl->getUserType()
 		]];
 		$body = new Google_Service_Sheets_ValueRange([
 			'values' => $values

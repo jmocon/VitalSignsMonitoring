@@ -40,7 +40,7 @@ function add(){
 	$clsUser = new User();
 	$mdlUser = new UserModel();
 	$clsFn = new Fn();
-
+	
 	$error .= $clsFn->setForm('Username',$mdlUser,true);
 	$error .= $clsFn->setForm('Password',$mdlUser,true);
 	$error .= $clsFn->setForm('FirstName',$mdlUser,true);
@@ -49,6 +49,7 @@ function add(){
 	$error .= $clsFn->setForm('Age',$mdlUser,true);
 	$error .= $clsFn->setForm('Gender',$mdlUser,true);
 	$error .= $clsFn->setForm('Address',$mdlUser,true);
+	$error .= $clsFn->setForm('DoctorNumber',$mdlUser,true);
 	$mdlUser->setUserType('client');
 
 	if ($error == "") {

@@ -38,6 +38,12 @@ $page = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
           <p>Vital Data</p>
         </a>
       </li>
+      <li class="nav-item <?php echo ($page == 'DisplaySymptoms.php')?'active':''; ?>">
+        <a class="nav-link" href="./DisplaySymptoms.php">
+          <i class="fa fa-diagnoses"></i>
+          <p>Symptoms</p>
+        </a>
+      </li>
       <li>
         <a class="nav-link" href="./logout.php">
           <i class="nc-icon nc-button-power"></i>

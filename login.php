@@ -63,7 +63,7 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="assets/fonts/Montserrat.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.css" />
   <!-- CSS Files -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />

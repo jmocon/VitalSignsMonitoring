@@ -14,6 +14,7 @@ $lname = "";
 $age = "";
 $gender = "";
 $address = "";
+$contact = "";
 if (isset($_GET['d']) && isset($_GET['d'])) {
   if ($_GET['d'] == "register") {
     $missing = "";
@@ -37,7 +38,7 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
         $regnotif = "User successfully added.";
         $regsuccess = true;
         $range = "userdata";
-        $values = [[$uname, $pword,$fname,$mname,$lname,$age,$gender,$address,"client"]];
+        $values = [[$uname, $pword,$fname,$mname,$lname,$age,$gender,$address,$contact,"client"]];
         $body = new Google_Service_Sheets_ValueRange([
           'values' => $values
         ]);
@@ -63,7 +64,7 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="assets/fonts/Montserrat.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.css" />
   <!-- CSS Files -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
@@ -207,6 +208,20 @@ if (isset($_GET['d']) && isset($_GET['d'])) {
                             id="txt_regAddress"
                             placeholder="House No. / Street / District / City / Province"
                             ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-12 p-0">
+                        <div class="form-group">
+                          <label>Contact</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="contact"
+                            id="txt_regContact"
+                            placeholder="Contact Number"
+                          />
                         </div>
                       </div>
                     </div>
